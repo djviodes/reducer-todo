@@ -1,4 +1,4 @@
-export const initialState = [
+const initialState = [
     {
       item: "Learn about reducers",
       completed: false,
@@ -6,7 +6,7 @@ export const initialState = [
     }
   ];
   
-  export const reducer = (state, action) => {
+  const reducer = (state, action) => {
     switch (action.type) {
       case "ADD_TODO":
         const newTodo = {
@@ -23,6 +23,8 @@ export const initialState = [
         return state.filter(e => !e.completed);
   
       default:
-        throw state;
+        return state;
     }
   };
+
+export {initialState, reducer};
