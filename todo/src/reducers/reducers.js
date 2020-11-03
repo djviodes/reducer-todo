@@ -1,16 +1,35 @@
-import { SET_ITEM, SET_COMPLETED, SET_ID } from '../actions/actions';
+let initialState = [
+  {
+    item: "Learn about reducers",
+    completed: false,
+    id: 3892987589,
+  },
+];
 
 const reducer = (state, action) => {
-    switch(action.type) {
-        case(SET_ITEM):
-            return({...state, item: action.payload});
-        case(SET_COMPLETED):
-            return({...state, completed: action.payload});
-        case(SET_ID):
-            return({...state, id: action.payload});
-        default:
-            return(state);
-    }
-}
+  let newState = [];
+  switch (action.type) {
+    case "ADD_TODO":
+      newState = [
+        ...state,
+        { item: action.payload, completed: false, id: Date.now() },
+      ];
+      return newState;
+    case "TOGGLE_COMPLETED":
+      let idx = Number(action.payload);
+      newState = [...state];
+      newState[idx] = { ...newState[idx], completed: !newState[idx].completed };
+      return newState;
+    case "CLEAR_COMPLETED":
+      for (let i in state) {
+        if (!state[i].completed) {
+          newState.push(state[i]);
+        }
+      }
+      return newState;
+    default:
+      return state;
+  }
+};
 
-export default reducer;
+export { reducer, initialState };
