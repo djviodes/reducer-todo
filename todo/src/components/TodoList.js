@@ -1,26 +1,23 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import './../App.css';
 
-const StyledList = styled.div`
-  .completed{
-    text-decoration: line-through;
-  }
-`
+const TodoList = (props) => {
+console.log(props);
+    const handleToggle = (id) => {
+        props.dispatch({ type: "COMPLETED", id: id })
+    }
 
-export default function List(props) {
-  return (
-    <StyledList>
-      {props.state.map((item, idx) => {
-        return (
-          <p
-            key={idx}
-            className={item.completed ? "completed" : ""}
-            onClick={props.toggle}
-          >
-            {item.item}
-          </p>
-        );
-      })}
-    </StyledList>
-  );
+    return (
+      <div className="todoArea">
+        {props.state.map(todo => {
+          return (
+            <div className={`todo${todo.completed ? " completed" : ""}`} onClick={() => handleToggle(todo.id)} key={todo.id}>
+              <p>{todo.item}</p>
+            </div>
+                ) 
+            })}
+        </div>
+    );
 }
+
+export default TodoList; 
